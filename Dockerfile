@@ -22,7 +22,7 @@ RUN apt-get update && \
 
 WORKDIR /chat_app
 
-RUN git clone https://github.com/ParthG26/ChatApp-Deployment-using-AWS.git .
+COPY . /chat_app
 
 ENV DB_NAME=ChatApp
     DB_USER=chat_user
