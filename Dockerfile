@@ -40,4 +40,4 @@ WORKDIR /chat_app/fundoo
 
 EXPOSE 8000
 
-CMD bash -c "set -a && source /chat_app/.env && set +a && source /chat_app/venv/bin/activate && python3 /chat_app/fundoo/manage.py migrate && /chat_app/venv/bin/gunicorn --bind 0.0.0.0:8000 fundoo.wsgi:application"
+CMD bash -c "source /chat_app/venv/bin/activate && python3 /chat_app/fundoo/manage.py migrate && /chat_app/venv/bin/gunicorn --bind 0.0.0.0:8000 fundoo.wsgi:application"
