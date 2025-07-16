@@ -24,7 +24,11 @@ WORKDIR /chat_app
 
 RUN git clone https://github.com/ParthG26/ChatApp-Deployment-using-AWS.git .
 
-COPY .env /chat_app/.env
+ENV DB_NAME=ChatApp
+    DB_USER=chat_user
+    DB_PASSWORD=chatapp_admin
+    DB_HOST=mysql
+    DB_PORT=3306
 
 RUN python3.8 -m venv venv && \
     bash -c "source venv/bin/activate && \
