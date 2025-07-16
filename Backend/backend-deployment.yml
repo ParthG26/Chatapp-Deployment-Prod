@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: 878436876448.dkr.ecr.ap-south-1.amazonaws.com/chatapp-backend:latest
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: chatapp-config
+        - secretRef:
+            name: chatapp-secrets
+        env:
+        - name: DB_HOST
+          value: mysql

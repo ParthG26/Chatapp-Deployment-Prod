@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: 878436876448.dkr.ecr.ap-south-1.amazonaws.com/chatapp-database
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: chatapp-secrets
+              key: DB_PASSWORD
+        - name: MYSQL_DATABASE
+          value: chatapp
+        - name: MYSQL_USER
+          value: chat_user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: chatapp-secrets
+              key: DB_PASSWORD
+        livenessProbe:
+          tcpSocket:
+            port: 3306
+          initialDelaySeconds: 20
+          periodSeconds: 15
+          failureThreshold: 3
+
