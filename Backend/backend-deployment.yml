@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: 878436876448.dkr.ecr.ap-south-1.amazonaws.com/chatapp:20
+        image: 878436876448.dkr.ecr.ap-south-1.amazonaws.com/chatapp:21
         ports:
         - containerPort: 8000
         envFrom:
