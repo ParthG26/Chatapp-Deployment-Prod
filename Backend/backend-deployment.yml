@@ -14,9 +14,19 @@ spec:
       labels:
         app: backend
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/zone
+                operator: In
+                values:
+                - ap-south-1a
+                - ap-south-1b
       containers:
       - name: backend
-        image: 878436876448.dkr.ecr.ap-south-1.amazonaws.com/chatapp:23
+        image: 878436876448.dkr.ecr.ap-south-1.amazonaws.com/chatapp-backend:23
         ports:
         - containerPort: 8000
         envFrom:
@@ -27,3 +37,24 @@ spec:
         env:
         - name: DB_HOST
           value: mysql
+        readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 2
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 15
+          failureThreshold: 3
+        resources:
+          requests: 
+            cpu: "100m"
+          limits:
+            cpu: "500m"
