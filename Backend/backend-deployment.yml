@@ -26,7 +26,7 @@ spec:
                 - ap-south-1b
       containers:
       - name: backend
-        image: 878436876448.dkr.ecr.ap-south-1.amazonaws.com/chatapp:32
+        image: 878436876448.dkr.ecr.ap-south-1.amazonaws.com/chatapp:33
         ports:
         - containerPort: 8000
         envFrom:
